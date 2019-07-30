@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<script src="https://unpkg.com/arweave/bundles/web.bundle.min.js"></script>
+	<script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+  <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="../css/index.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script type="text/javascript" src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js'></script>
+	<title>Tenor-AR</title>
+</head>
+<body>
+	<div class = 'wrapper'>
+		<div class = 'header'>
+			<div class = 'container'>
+					<div class = 'app-title'>
+						<div>
+							<a class = 'logoText'><p>Tenor on Arweave</p></a>
+						</div>
+						<div class = 'login'>
+							<div class = 'accountData'>
+								<a style='display: none' class = 'blue-button' data-target="#loginModal">
+									<img src='../icons/upload.png' class ='upload-icon'/>	UPLOAD
+								</a>
+								<a class = 'white-button' data-toggle="modal" data-target="#loginModal">LOGIN</a>
+							</div>
+						</div>
+
+					</div>
+			</div>	
+		</div>
+		<div class = 'searchBlock'>
+			<div class = 'container'>
+				<div class = 'search-bar-wrapper'>
+					<form class = 'navbar-form'>
+						<div class ='input-group'>
+							<input class = 'form-control' id ='search' type='text' placeholder="Search for GIFs" autocomplete="off">
+							<span class = 'input-group-btn'>
+								<button class = 'btn btn-go' type='submit'>
+									<img src='../icons/search.png' />
+								</button>
+							</span>
+						</div>	
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class ='main'>
+			<div class="container">
+				<div class = 'profile-body'>
+					<form class = 'gifForm' style='display: none'>
+						<div class = 'form-group'>
+							<label>Tag Name</label>
+							<input type="text" class = 'form-control' id='tagName' placeholder="Enter Gif Tag">
+							<label>Upload Your Gif</label>
+							<div class="file-input">
+                <input type="file" id="gifFile" accept=".gif">
+                <div id="filedescription">Click to add Gif</div>
+              </div>
+						</div>
+						<button type='submit' class ='btn btn-primary' id='uploadGif'>Upload</button>
+					</form>
+					<div class = 'gifsBlock'>
+						<h2>Latest GIFs</h2>
+						<div class = 'listOfGifs'>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div class = 'footer'>
+		<div class = 'container'>
+			<h3><a href = 'https://github.com/speedrunner911/ar-tenor' target="_blank">ar-tenor</a></h3>
+		</div>
+	</div>
+
+  <div id="loginModal" class="modal" tabindex='-1' role="dialog" aria-labelledby="loginModal" aria-hidden="true">
+    <div class="modal-content">
+    	<div class = 'modal-header'>
+    		<h4 class = 'modal-title'>Login</h4>
+    		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+    	</div>
+      <div class = 'modal-body'>
+        <div class="row">
+            <div class="col s12">
+                <div class="file-input">
+                    <input type="file" id="keyfile">
+                    <div id="filedescription">Drop a keyfile to login</div>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id = 'confirmModal' class = 'modal' tabindex="-1" roke ='dialog' aria-labelledby='confirmModal' aria-hidden='true'>
+  	<div class = 'modal-content'>
+  		<div class="modal-header">
+  			<h4 class = 'modal-title'>New Gif Post</h4>
+    		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+  		</div>
+  		<div class="modal-body">
+  			<div class = 'transactionFeeBlock'>
+	  			<h6>Transaction Fee:</h6>
+	  			<div id='transactionFee'></div>
+  			</div>
+  			<div class = 'transactionTagBlock'>
+	  			<h6>Tag:</h6>
+	  			<div id ='transactionTag'></div>
+  			</div>
+  			<div>
+	  			<div id = 'transactionGif'></div>
+	  		</div>
+  		</div>
+  		<div class='modal-footer'>
+  			<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+  			<button type="button" id = 'confirmUpload' class="btn btn-primary">Confirm</button>
+  		</div>
+  	</div>
+  </div>
+
+	<noscript>You need to enable JavaScript to run this app</noscript>
+	<script src = '../js/index.js'></script>
+</body>
+</html>

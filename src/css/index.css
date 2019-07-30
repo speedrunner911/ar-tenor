@@ -1,0 +1,234 @@
+
+* {
+	padding: 0;
+	margin: 0;
+}
+
+p {
+	margin: 0;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+h2 {
+	font-family: Montserrat,helvetica,arial,sans-serif;;
+	font-weight: 500;
+}
+
+input:focus, textarea {
+    outline: none !important;
+}
+input[type=file] {
+    opacity: 0;
+    position: absolute;
+    background: none;
+    width: 100%;
+    height: 100%;
+ }
+
+ .gifForm input[type=file] {
+ 	width: 1080px;
+ 	height: 200px;
+ }
+
+.wrapper {
+	font-family: Montserrat,helvetica,arial,sans-serif;
+	min-height: 100%;
+}
+
+.header {
+	background-color: #fff;
+	height: 100%;
+}
+
+.login .white-button {
+	cursor: pointer;
+	padding: 7px 15px;
+	font-size: 13px;
+	font-family:  Nunito Sans,helvetica,arial,sans-serif;
+	font-weight: 700;
+	border:1px solid #007add;
+	border-radius: 3px;
+	background-color: #fff;
+	color: #007add !important;
+}
+
+.login .blue-button {
+	margin-right: 10px;
+	padding: 7px 15px;
+	font-size: 13px;
+	font-family:  Nunito Sans,helvetica,arial,sans-serif;
+	font-weight: 700;
+	border-radius: 3px;
+	border-color: #007add;
+	background-color: #007add;
+	color: #fff !important;
+}
+
+.login .blue-button:hover, a.logoText:hover {
+	cursor: pointer;
+}
+
+.login .blue-button img {
+	margin-right: 3px;
+}
+
+.login .upload-icon {
+	color: #fff;
+	width: 15px;
+	height: 15px;
+}
+
+.searchBlock {
+	padding: 12px;
+	height: 75px;
+	background-image: linear-gradient(90deg,#4cafff,#2e93e6);
+}
+
+.searchBlock input {
+	height: 50px;
+	box-shadow: 0 2px 2px 0 rgba(0,0,0,.16), 0 0 1px 0 rgba(0,0,0,.08);
+	font-family: Montserrat,helvetica,arial,sans-serif;
+	font-family: 600;
+}
+
+.searchBlock span {
+	border-radius: 0 5px 5px 0;
+	box-shadow: 0 2px 2px 0 rgba(0,0,0,.16), 0 0 1px 0 rgba(0,0,0,.08);
+	padding-top: 5px;
+	background-color: 	#87CEEB;
+}
+
+.app-title{
+	padding: 15px;
+	height: 100%;
+	display: flex;
+  justify-content: space-between;
+  align-content: center;
+}
+
+.app-title p {
+	color: rgb(2, 117, 216);;
+	font-weight: 600;
+	font-size: 20px;
+}
+
+.main {
+	background-color: #fff;
+	min-height: 850px;
+}
+
+.main .profile-body {
+	padding: 15px;
+}
+
+.profile-body .importWallet{
+	text-align: center;
+}
+
+.footer {
+	background-color:  #586DA8;
+	height: 100%;
+	z-index: 99;
+	min-height: 50px;
+}
+
+.listOfGifs {
+
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+}
+
+.gifPost {
+	padding: 5px;
+	height: 100%;
+}
+
+.gifPost img {
+	z-index: -1;
+	max-width: 400px;
+	max-height: 400px;
+	transition: 0.3s ease;
+	border: 1px solid #d9d9d9;
+	border-radius: 5px;
+}
+
+.gifPost span {
+	display: none;
+}
+
+.gifPost .tags {
+	/*transition: 0.3s ease;*/
+	z-index: 1;
+	padding-left: 10px;
+	width: 100%;
+	pointer-events: none;
+	font-size: 16px;
+	font-weight: 600;
+	text-shadow: 0 0 1px #000;
+	width: auto;
+	font-family: Montserrat,helvetica,arial,sans-serif;
+	color: #000;
+	padding-bottom: 10px;
+}
+
+.gifPost img:hover {
+	opacity: 0.9;
+	transform: scale(1.01, 1.01);
+}
+
+
+.modal {
+	margin: auto;
+	top: 10%;;
+	left: 0;
+	right: 0;
+	width: 55%;
+	max-height: 65%;
+	border-radius: 2px;
+	will-change: top, opacity;
+}
+
+.file-input {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: auto;
+	height: 200px;
+	border: 2px dashed #62666f;
+	text-align: center;
+}
+
+
+.footer a {
+	color: white;
+	text-decoration: underline;
+}
+
+/* upload page*/
+
+#confirmModal .modal-body {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.transactionFeeBlock, .transactionTagBlock {
+	width: 80%;
+	display: flex;
+	justify-content: space-between;
+}
+
+#transactionGif img{
+	border-radius: 3px;
+}
+
+.transactionFeeBlock p, .transactionTagBlock p {
+	font-weight: bold;
+}
+
+
