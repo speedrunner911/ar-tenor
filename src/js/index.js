@@ -20,6 +20,27 @@ async function getAddress(jwk) {
 	return address;
 }
 
+async function getTxs(address) {
+	try{
+    const query = {
+      op: 'and',
+      expr1: {
+          op: 'equals',
+          expr1: 'from',
+          expr2: address
+      },
+      expr2: {
+          op: 'equals',
+          expr1: 'App-Name',
+          expr2: 'ar-tenor'
+      }     
+    }
+    const getGifsByAddress = await arweave.arql(query);
+    return getGifsByAddress
+  } catch(err){
+    console.log(err)
+  }  
+}
 
 async function getTxsByName(name) {
 	const lowName = name.toLowerCase();
@@ -102,7 +123,8 @@ async function getGif(txId) {
 
 // list of all gifs
 async function fillGifsLatest() {
-	$('div.listOfGifs').html('')
+	$('div.listOfGifs').show()
+	$('div.listOfMyGifs').hide()
 	let allGifsData = [];
 	let html = '';
 	try {
@@ -127,7 +149,9 @@ async function fillGifsLatest() {
 
 
 async function fillGifsByAddress() {
-	$('div.listOfGifs').html('')
+	$('div.listOfMyGifs').show()
+	$('div.listOfGifs').hide()
+	$('div.listOfMyGifs').html('')
 	let allGifsData = [];
 	let html = '';
 	const address = sessionStorage.getItem('address')
@@ -152,30 +176,57 @@ async function fillGifsByAddress() {
 				`</div>`
 		}
 	}
-	$('div.listOfGifs').html(html)
+	$('div.listOfMyGifs').html(html)
 }	
 
-async function getTxs(address) {
-	try{
-    const query = {
-      op: 'and',
-      expr1: {
-          op: 'equals',
-          expr1: 'from',
-          expr2: address
-      },
-      expr2: {
-          op: 'equals',
-          expr1: 'App-Name',
-          expr2: 'ar-tenor'
-      }     
-    }
-    const getGifsByAddress = await arweave.arql(query);
-    return getGifsByAddress
-  } catch(err){
-    console.log(err)
-  }  
+async function catchNewGifs() {
+	let allGifsData = [];
+	const existingGifs = $('.listOfGifs').find('img');
+	
+	try {
+		allGifsData = await getAllGifs();
+	} catch(e) {
+		console.log(e)
+	}
+	if(allGifsData.length > existingGifs.length) {
+		// re-render all gifs
+		fillGifsLatest()
+	}
 }
+
+async function catchNewUploadGifs() {
+	const address = sessionStorage.getItem('address')
+	let allGifsData = [];
+	const existingGifs = $('.listOfMyGifs').find('img');
+		try {
+		allGifsData = await getGifsByAddress(address);
+	} catch(e) {
+		console.log(e)
+	}
+	
+	if(allGifsData.length > existingGifs.length) {
+		// re-render by address gifs
+		fillGifsByAddress()
+	}
+}
+
+async function realTimeUpdate() {
+	const isUpload = $('form.gifForm').css('display')
+	if(isUpload == 'none') {
+		// home page
+		catchNewGifs()
+	} else {
+		// upload page
+		catchNewUploadGifs()
+		
+	}
+}
+// every 1 min
+setInterval(realTimeUpdate, 1000*60)
+
+
+
+
 
 
 $('span.input-group-btn').on('click', async (e) => {
@@ -277,14 +328,13 @@ $(document).ready(() => {
 			}
 		}
 	}
-	isLogin()
-
-
+	isLogin()	
 
 	fillGifsLatest()
 	
 
 })
+
 
 $('#gifFile').on('change',async e => {
 	e.preventDefault()
@@ -295,8 +345,6 @@ $('#gifFile').on('change',async e => {
   };
   reader.readAsDataURL(file);
 })
-
-
 
 
 $('button#uploadGif').on('click', async (e) => {
@@ -323,7 +371,6 @@ $('button#uploadGif').on('click', async (e) => {
 $('button#confirmUpload').on('click', async (e) => {
 	e.preventDefault()
 	const walletData = JSON.parse(sessionStorage.getItem('walletData'))
-	
 	const tag = $('input#tagName').val()
 	const file = document.getElementById('gifFile').files[0]
 	const fileUrl = await LoadImage(file)
@@ -335,6 +382,9 @@ $('button#confirmUpload').on('click', async (e) => {
 		  await arweave.transactions.post(tx.data.transaction);
 			$('div#confirmModal').modal('hide')
 			$('input#tagName').val('')
+			var address = await getAddress(walletData)
+			var balance = await getBalance(address)
+			sessionStorage.setItem('balance', balance)
 			alert('Transaction Send, wait the confirmation to view on the permafeed')
 			
 		} catch(e) {
@@ -350,6 +400,8 @@ $('a.blue-button').on('click', async (e) => {
 	$('.gifsBlock h2').text('My Gifs:')
 	fillGifsByAddress()
 })
+
+
 
 $('a.logoText').on('click', async (e) => {
 	e.preventDefault();
@@ -391,6 +443,7 @@ async function createTx(tag, file, walletData) {
 		}
 	}
 }
+
 
 async function postNewGif(tag, file) {
 	const walletData = JSON.parse(sessionStorage.getItem('walletData'))
@@ -436,3 +489,4 @@ async function LoadImage(file) {
   }
   return readAsDataURL(file);
 }
+
